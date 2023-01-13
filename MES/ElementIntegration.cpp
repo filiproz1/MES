@@ -20,47 +20,6 @@ ElementIntegration::ElementIntegration(std::vector<Node> nodes, double k, double
 	P.resize(4);
 }
 
-//void ElementIntegration::fillXiTable()
-//{
-//	for (int i = 0; i < MACIERZ_PC_2; i++)
-//	{
-//		std::vector<double> row;
-//		for (int j = 0; j < MACIERZ_PC_2; j++)
-//		{
-//			row.push_back(dN_dxi(punkty_calkowania[MACIERZ_PC - 2][i / MACIERZ_PC], 
-//				j + 1));
-//		}
-//		xi_table.push_back(row);
-//	}
-//}
-//void ElementIntegration::fillEtaTable()
-//{
-//	for (int i = 0; i < MACIERZ_PC_2; i++)
-//	{
-//		std::vector<double> row;
-//		for (int j = 0; j < MACIERZ_PC_2; j++)
-//		{
-//			row.push_back(dN_deta(punkty_calkowania[MACIERZ_PC - 2][i % MACIERZ_PC], 
-//				j + 1));
-//		}
-//		eta_table.push_back(row);
-//	}
-//}
-//void ElementIntegration::fillShapeFunctionValues()
-//{
-//	for (int i = 0; i < MACIERZ_PC_2; i++)
-//	{
-//		std::vector<double> row;
-//		for (int j = 0; j < MACIERZ_PC_2; j++)
-//		{
-//			row.push_back(
-//				shape_function(punkty_calkowania[MACIERZ_PC - 2][i / MACIERZ_PC-2], 
-//					punkty_calkowania[MACIERZ_PC - 2][i % MACIERZ_PC], j + 1));
-//		}
-//		shape_function_values.push_back(row);
-//	}
-//}
-
 void ElementIntegration::fillTables()
 {
 	for (int i = 0; i < MACIERZ_PC_2; i++)
@@ -109,23 +68,6 @@ void ElementIntegration::setJakobian()
 		detJ[i] = jakobian[0][0] * jakobian[1][1] - jakobian[0][1] * jakobian[1][0];
 	}
 }
-
-
-//void ElementIntegration::setdNdx()
-//{
-//	dN_dx.resize(MACIERZ_PC_2);
-//	for (int i = 0; i < MACIERZ_PC_2; i++) //petla po punktach calkowania
-//	{
-//		double** jakobian_inv = mat2_inv(jakobiany[i]); //jakobian odwrotny bez wyznacznika
-//		jakobian_inv = mat_mult(jakobian_inv, 1 / detJ[i], 2, 2); //mnozenie przez odwrotnosc wyznacznika
-//		for (int j = 0; j < 4; j++) //petla po wezlach - funkcje ksztaltu
-//		{
-//			double value = jakobian_inv[0][0] * xi_table[i][j] +
-//				jakobian_inv[0][1] * eta_table[i][j];
-//			dN_dx[i].push_back(value);
-//		}
-//	}
-//}
 
 void ElementIntegration::setdNdxy()
 {
@@ -217,7 +159,6 @@ void ElementIntegration::setEdges()
 		e.setP();
 	}
 }
-
 
 void ElementIntegration::setUpElement()
 {

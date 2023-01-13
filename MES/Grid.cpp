@@ -4,7 +4,6 @@ Grid::Grid(size_t n_elems, size_t n_nodes)
 {
 	nE = n_elems;
 	nN = n_nodes;
-	//ND.resize(nN);
 	Elem.resize(nE);
 }
 
