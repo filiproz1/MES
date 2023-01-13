@@ -1,0 +1,59 @@
+Obliczenia wykonane na siatce o nazwie - Test2_4_4_MixGrid.txt
+Poprawnie otworzono plik.
+500
+50
+25
+300
+1200
+100
+7800
+700
+8 16
+9 9
+x = 0.1   Y = 0.005,  status = 0
+x = 0.0546918   Y = 0.005,  status = 0
+x = 0.0226541   Y = 0.005,  status = 0
+x = 0   Y = 0.005,  status = 0
+x = 0.1   Y = -0.0403082,  status = 0
+x = 0.0623899   Y = -0.0326101,  status = 0
+x = 0.0303522   Y = -0.0253522,  status = 0
+x = 0   Y = -0.0176541,  status = 0
+x = 0.1   Y = -0.0723459,  status = 0
+x = 0.0696478   Y = -0.0646478,  status = 0
+x = 0.0376101   Y = -0.0573899,  status = 0
+x = 0   Y = -0.0496918,  status = 0
+x = 0.1   Y = -0.095,  status = 0
+x = 0.0773459   Y = -0.095,  status = 0
+x = 0.0453082   Y = -0.095,  status = 0
+x = 0   Y = -0.095,  status = 0
+ID[1,2,6,5]
+ID[2,3,7,6]
+ID[3,4,8,7]
+ID[5,6,10,9]
+ID[6,7,11,10]
+ID[7,8,12,11]
+ID[9,10,14,13]
+ID[10,11,15,14]
+ID[11,12,16,15]
+Temperature results
+
+Time = 50 min_T= 95.152, max_T = 374.69
+
+Time = 100 min_T= 147.64, max_T = 505.97
+
+Time = 150 min_T= 220.16, max_T = 587
+
+Time = 200 min_T= 296.74, max_T = 647.29
+
+Time = 250 min_T= 370.97, max_T = 697.33
+
+Time = 300 min_T= 440.56, max_T = 741.22
+
+Time = 350 min_T= 504.89, max_T = 781.21
+
+Time = 400 min_T= 564, max_T = 817.39
+
+Time = 450 min_T= 618.17, max_T = 850.24
+
+Time = 500 min_T= 667.77, max_T = 880.17
+Press any key to continue . . .
