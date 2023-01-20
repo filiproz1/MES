@@ -222,11 +222,16 @@ void runSimulation(double** H_global, double** C_global, std::vector<double> P_g
 			PC_t[i] = P_global[i] + C_t[i];
 		}
 
-
 		eqsolv.last_col = PC_t;
 		current_temp = eqsolv.solve();
 		minmax = getMinMax(current_temp);
 		std::cout.precision(8);
 		std::cout << "time = " << i << "s\tmin = " << minmax[0] << "\tmax = " << minmax[1] << "\n";
+		#if PRINT
+			std::cout.precision(3);
+			std::cout << "temperatury:\n";
+			print_vector(current_temp);
+			std::cout << "\n";
+		#endif
 	}
 }

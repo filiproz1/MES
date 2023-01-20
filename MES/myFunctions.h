@@ -8,6 +8,9 @@
 #include<cmath>
 #include"EquationSolver.h"
 
+
+#define PRINT false;
+
 const int MACIERZ_PC = 2; // ilosc punktow calkowania dla macierzy H i C
 const int KRAWEDZ_PC = 2; // ilosc punktow calkowania dla macierzy Hbc i wektora P
 
@@ -15,7 +18,7 @@ const int MACIERZ_PC_2 = MACIERZ_PC * MACIERZ_PC; // ilosc pc dla macierzy H i C
 
 const std::vector<std::vector<double>> punkty_calkowania = {
 	{-1 / sqrt(3),	1 / sqrt(3)},										//N = 2
-	{-0.77459666924,		0,			0.77459666924},					//N = 3 , sqrt(3/5) nie dziala
+	{-0.77459666924,		0,			0.77459666924},					//N = 3
 	{-0.861136,		-0.339981,	0.339981,	0.861136},					//N = 4
 	{-0.906180,		-0.538469,	0,			0.538469,		0.906180}	//N = 5
 };

@@ -99,18 +99,25 @@ void ElementIntegration::setMatricesPC()
 	{
 		double* x = vec_to_double(dN_dx[i]);
 		double* y = vec_to_double(dN_dy[i]);
-
-		double** x_mat = vector_mult(x, x, 4);
-		double** y_mat = vector_mult(y, y, 4);
-		double** final_matrix = mat_sum(x_mat, y_mat, 4, 4);
-		mat_H_PC[i] = mat_mult(
-			mat_mult(
-				final_matrix, K, 4, 4)
-			, detJ[i], 4, 4);
-
 		double* N = vec_to_double(shape_function_values[i]);
+
+		// [X] = {dN/dx} * {dN/dx}^T
+		double** x_mat = vector_mult(x, x, 4);
+
+		// [Y] = {dN/dy} * {dN/dy}^T
+		double** y_mat = vector_mult(y, y, 4);
+
+		//[X] + [Y]
+		double** final_matrix = mat_sum(x_mat, y_mat, 4, 4);
+
+		//[H] = K * detJ * ([X] + [Y])
+		mat_H_PC[i] = mat_mult(final_matrix, K * detJ[i], 4, 4);
+
+		// [N] = {N}*{N}^T
 		double** N_mat = vector_mult(N, N, 4);
-		mat_C_PC[i] = mat_mult(N_mat, spec_heat * density, 4, 4);
+
+		// [C] = [N] * spec_heat * density * detJ
+		mat_C_PC[i] = mat_mult(N_mat, spec_heat * density * detJ[i], 4, 4);
 	}
 }
 
@@ -131,9 +138,10 @@ void ElementIntegration::setMatrices()
 	{
 		double** H_temp = mat_H_PC[i];
 		double** C_temp = mat_C_PC[i];
-		H_temp = mat_mult(H_temp, 
-		wagi[MACIERZ_PC - 2][i % MACIERZ_PC] * wagi[MACIERZ_PC - 2][i / MACIERZ_PC], 4, 4); // temp *= wagi[i]*wagi[j]
-		C_temp = mat_mult(C_temp, wagi[MACIERZ_PC - 2][i % MACIERZ_PC] * wagi[MACIERZ_PC - 2][i / MACIERZ_PC] * detJ[i], 4, 4);
+
+		// temp *= wagi[i]*wagi[j]
+		H_temp = mat_mult(H_temp, wagi[MACIERZ_PC - 2][i % MACIERZ_PC] * wagi[MACIERZ_PC - 2][i / MACIERZ_PC], 4, 4);
+		C_temp = mat_mult(C_temp, wagi[MACIERZ_PC - 2][i % MACIERZ_PC] * wagi[MACIERZ_PC - 2][i / MACIERZ_PC], 4, 4);
 
 		mat_C = mat_sum(mat_C, C_temp, 4, 4); // mat_C += temp
 		mat_H = mat_sum(mat_H, H_temp, 4, 4); // mat_H += temp

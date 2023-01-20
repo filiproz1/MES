@@ -13,18 +13,19 @@ int main()
 {
 	try {
 		// wczytywanie danych z pliku do obiektów
-		GridFile grid_file("txt/Test1_4_4.txt");
-		//GridFile grid_file("txt/Test2_4_4_MixGrid.txt");
+		//GridFile grid_file("txt/Test1_4_4.txt");
+		GridFile grid_file("txt/Test2_4_4_MixGrid.txt");
 		//GridFile grid_file("txt/Test3_31_31_kwadrat.txt");
 
 		GlobalData global_data = grid_file.readGlobalData();
 		Grid grid = grid_file.readGridData();
 
 		// wypisanie danych z obiektów
-		//global_data.printData();
-		//grid.printNodesInfo();
-		//grid.printElementsIDs();
-
+		#if PRINT
+			global_data.printData();
+			grid.printNodesInfo();
+			grid.printElementsIDs();
+		#endif
 		double** H_global = new double* [grid.nN]; // zagregowana macierz H
 		double** C_global = new double* [grid.nN]; // zagregowana macierz C
 		vector<double> P_global = vector<double>(grid.nN);	//	zagregowany wektor P
@@ -68,12 +69,32 @@ int main()
 				}
 			}
 		}
+		#if PRINT
+		std::cout.precision(3);
+			std::cout << "[H]\n";
+			print_matrix(H_global, grid.nN, grid.nN);
+			std::cout << "\n";
+		#endif
 		double dt_inv = 1 / global_data.dt;
 		//[C] = [C] / dT
 		C_global = mat_mult(C_global, dt_inv, grid.nN, grid.nN);
+		#if PRINT
+			std::cout << "[C] / dT\n";
+			print_matrix(C_global, grid.nN, grid.nN);
+			std::cout << "\n";
+		#endif
 		//[H] = [H] + [C]
 		H_global = mat_sum(H_global, C_global, grid.nN, grid.nN);
-
+		#if PRINT
+			std::cout << "[H]+[C]\n";
+			print_matrix(H_global, grid.nN, grid.nN);
+			std::cout << "\n";
+		#endif
+		#if PRINT
+			std::cout << "{P}\n";
+			print_vector(P_global);
+			std::cout << "\n";
+		#endif
 
 		runSimulation(H_global, C_global, P_global, t0, global_data.t, global_data.dt);
 
